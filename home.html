@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- linking html with style  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="slider.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    
+</head>
+<body>
+
+    <!-- navigation bar -->
+    <div class="flex-container">
+      <h1 class="logo"><img src="images/logo.png" alt="logo" width="100px" height="30px"></h1>
+      
+      <div class="head">
+        <ul class="navigation">
+          <li><a href="#" class="active ">Home</a></li>
+          <li><a href="category.html" class="nav">Order Now</a></li>
+          <li><a href="about.html" class="nav">About</a></li>
+          <li><a href="help.html" class="nav">Help</a></li>
+        </ul>
+      </div>
+
+   </div>
+    <!-- section food page  -->
+    <section class="main">
+     <div class="container">
+      <div id="box1" class="box">
+        <h1>Discover the best food & drinks</h1>
+        <h3>Explore curated lists of top foods, drinks based on your interest</h3>
+      </div>
+
+      <div id="box2" class="box">
+        <img src="images/5.PNG" alt="fox" width="600px" height="600px" class="food">
+      </div> 
+      
+     <!-- card  slide bar for food   -->
+    <div  id="box3" class="box">
+       
+      <div class="wrapper">
+        <!-- <i id="left" class="fa-solid fa-angle-left"></i> -->
+        <ul class="carousel">
+          <!-- breakfast page  -->
+        
+          <li class="card">
+            <div class="img"><img src="images/soups.jpg" alt="img" draggable="false"></div>
+            <h2>Soups</h2>
+            <span></span>
+          </li>
+      
+
+          <li class="card">
+            <div class="img"><img src="images/6.PNG" alt="img" draggable="false"></div>
+            <h2>Pizza</h2>
+            <span></span>
+          </li>
+
+          <li class="card">
+            <div class="img"><img src="images/3.PNG" alt="img" draggable="false"></div>
+            <h2>veg Salad</h2>
+            <span></span>
+          </li>
+
+          <li class="card">
+            <div class="img"><img src="images/1.PNG" alt="img" draggable="false"></div>
+            <h2>curry</h2>
+            <sp</span>
+          </li>
+
+          <li class="card">
+            <div class="img"><img src="images/2.PNG" alt="img" draggable="false"></div>
+            <h2>Samosa</h2>
+            <span</span>
+          </li>
+
+          <li class="card">
+            <div class="img"><img src="images/4.PNG" alt="img" draggable="false"></div>
+            <h2>Halva</h2>
+            <span</span>
+          </li>
+          
+        </ul>
+        <!-- <i id="right" class="fa-solid fa-angle-right"></i> -->
+      </div>
+
+    </div>
+<div class="media">
+  <img src="images/whatsapp_icon.png" alt="">
+  <img src="images/facebook _icon.png" alt="">
+  <img src="images/twitter_icon.png" alt="">
+  <img src="images/instagram_icon.png" alt="">
+</div>
+     
+		<!-- <div class="search_box">
+				<input type="text" class="input" placeholder="search...">
+				<a href=""><i class="fa fa-search search-item"></i></a>
+			</div> -->
+
+		</div>
+    </section> 
+ 
+    <!-- adding js for slider  -->
+    <script>
+      const wrapper = document.querySelector(".wrapper");
+const carousel = document.querySelector(".carousel");
+const firstCardWidth = carousel.querySelector(".card").offsetWidth;
+const arrowBtns = document.querySelectorAll(".wrapper i");
+const carouselChildrens = [...carousel.children];
+
+let isDragging = false, isAutoPlay = true, startX, startScrollLeft, timeoutId;
+
+// Get the number of cards that can fit in the carousel at once
+let cardPerView = Math.round(carousel.offsetWidth / firstCardWidth);
+
+// Insert copies of the last few cards to beginning of carousel for infinite scrolling
+carouselChildrens.slice(-cardPerView).reverse().forEach(card => {
+  carousel.insertAdjacentHTML("afterbegin", card.outerHTML);
+});
+
+// Insert copies of the first few cards to end of carousel for infinite scrolling
+carouselChildrens.slice(0, cardPerView).forEach(card => {
+  carousel.insertAdjacentHTML("beforeend", card.outerHTML);
+});
+
+// Scroll the carousel at appropriate postition to hide first few duplicate cards on Firefox
+carousel.classList.add("no-transition");
+carousel.scrollLeft = carousel.offsetWidth;
+carousel.classList.remove("no-transition");
+
+// Add event listeners for the arrow buttons to scroll the carousel left and right
+arrowBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+      carousel.scrollLeft += btn.id == "left" ? -firstCardWidth : firstCardWidth;
+  });
+});
+
+const dragStart = (e) => {
+  isDragging = true;
+  carousel.classList.add("dragging");
+  // Records the initial cursor and scroll position of the carousel
+  startX = e.pageX;
+  startScrollLeft = carousel.scrollLeft;
+}
+
+const dragging = (e) => {
+  if(!isDragging) return; // if isDragging is false return from here
+  // Updates the scroll position of the carousel based on the cursor movement
+  carousel.scrollLeft = startScrollLeft - (e.pageX - startX);
+}
+
+const dragStop = () => {
+  isDragging = false;
+  carousel.classList.remove("dragging");
+}
+
+const infiniteScroll = () => {
+  // If the carousel is at the beginning, scroll to the end
+  if(carousel.scrollLeft === 0) {
+      carousel.classList.add("no-transition");
+      carousel.scrollLeft = carousel.scrollWidth - (2 * carousel.offsetWidth);
+      carousel.classList.remove("no-transition");
+  }
+  // If the carousel is at the end, scroll to the beginning
+  else if(Math.ceil(carousel.scrollLeft) === carousel.scrollWidth - carousel.offsetWidth) {
+      carousel.classList.add("no-transition");
+      carousel.scrollLeft = carousel.offsetWidth;
+      carousel.classList.remove("no-transition");
+  }
+
+  // Clear existing timeout & start autoplay if mouse is not hovering over carousel
+  clearTimeout(timeoutId);
+  if(!wrapper.matches(":hover")) autoPlay();
+}
+
+const autoPlay = () => {
+  if(window.innerWidth < 800 || !isAutoPlay) return; // Return if window is smaller than 800 or isAutoPlay is false
+  // Autoplay the carousel after every 2500 ms
+  timeoutId = setTimeout(() => carousel.scrollLeft += firstCardWidth, 2500);
+}
+autoPlay();
+
+carousel.addEventListener("mousedown", dragStart);
+carousel.addEventListener("mousemove", dragging);
+document.addEventListener("mouseup", dragStop);
+carousel.addEventListener("scroll", infiniteScroll);
+wrapper.addEventListener("mouseenter", () => clearTimeout(timeoutId));
+wrapper.addEventListener("mouseleave", autoPlay);
+
+  </script>
+
+</body>
+</html>

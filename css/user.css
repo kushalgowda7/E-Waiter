@@ -1,0 +1,100 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:'Outfit', sans-serif;
+}
+body{
+    background-color:#fff1dc;
+}
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 120px;
+}
+.content{
+    background: #ff6766;
+    width: 425px;
+    height: 425px;
+    display: flex;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    /* margin: 20px 0px 0px 20px; */
+}
+form{
+    width: 400px;
+    height: 400px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* min-height: 100vh; */
+    flex-direction: column;
+    gap: 30px;
+    background: #1d2b3a;
+}
+.inputBox{
+    position: relative;
+    width: 250px;
+}
+.inputBox input{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid rgb(255, 255, 255,0.25);
+    border-radius: 5px;
+    background: #1d2b3a;
+    outline: none;
+    color: aliceblue;
+    font-size: 1em;
+    transition: 0.5s;
+}
+.inputBox span{
+    position: absolute;
+    left: 0;
+    padding: 10px;
+    pointer-events: none;
+    font-size: 1em;
+    color: rgb(255, 255, 255,0.25);
+    text-transform: uppercase;
+    transition: 0.5s;
+}
+.inputBox input:valid ~ span,
+.inputBox input:focus ~ span{
+    color: aqua;
+    transform: translateX(10px) translateY(-7px);
+    font-size: 0.65em;
+    padding: 0 10px;
+    background: #1d2b3a;
+    border-left: 1px solid aqua;
+    border-right: 1px solid aqua;
+    letter-spacing: 0.2em;
+}
+/* .inputBox:nth-child(2) input:valid ~ span,
+.inputBox:nth-child(2) input:focus ~ span{
+    background: aqua;
+    color: #1d2b3a;
+    border-radius: 2px;
+} */
+.inputBox input:valid,
+.inputBox input:focus {
+    border: 1px solid aqua;
+}
+.place_order{
+    cursor: pointer;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-top: 30px;
+    /* width:190px; */
+    padding: 12px 36px;
+    font-size: 1em;
+    letter-spacing: 2px;
+    border-radius: 40px;
+    background: linear-gradient(90deg,#0162c8,#55e7fc);
+
+}
+a{
+    text-decoration: none;
+    color: white;
+}
